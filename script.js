@@ -18,7 +18,7 @@ const DomElement = function (selector, height, width, bg, fsz, content) {
     }
     newElm.innerHTML = this.content;
     newElm.style.cssText =
-      "display: flex; justify-content: center; align-items: center; border: 2px solid black; border-radius: 10px;" +
+      "position: absolute; display: flex; justify-content: center; align-items: center; border: 2px solid black; border-radius: 10px;" +
       "height: " +
       this.height +
       "px; width: " +
@@ -31,23 +31,51 @@ const DomElement = function (selector, height, width, bg, fsz, content) {
     document.body.append(newElm);
   };
 };
-
-const p = new DomElement(
-  "#best",
-  200,
-  200,
-  "yellow",
-  20,
-  "Это новый&nbsp;<b>P</b>"
-);
-p.createElement();
-
-const div = new DomElement(
-  ".block",
-  200,
-  300,
-  "red",
-  20,
-  "Это новый&nbsp;<b>DIV</b>"
-);
-div.createElement();
+const div = new DomElement(".block", 100, 100, "red", 20, "Квадрат");
+let elmTop;
+let elmLeft;
+let divElm;
+document.addEventListener("DOMContentLoaded", () => {
+  div.createElement();
+  divElm = document.querySelector(".block");
+});
+document.addEventListener("keydown", (event) => {
+  if (event.keyCode === 40) {
+    if (divElm.style.top === "") {
+      elmTop = 0;
+    } else {
+      elmTop = parseInt(divElm.style.top);
+    }
+    elmTop += 10;
+    divElm.style.top = elmTop + "px";
+  }
+  if (event.keyCode === 38) {
+    if (divElm.style.top === "") {
+      elmTop = 0;
+    } else {
+      elmTop = parseInt(divElm.style.top);
+    }
+    elmTop -= 10;
+    elmTop = elmTop < 0 ? 0 : elmTop;
+    divElm.style.top = elmTop + "px";
+  }
+  if (event.keyCode === 39) {
+    if (divElm.style.left === "") {
+      elmLeft = 0;
+    } else {
+      elmLeft = parseInt(divElm.style.left);
+    }
+    elmLeft += 10;
+    divElm.style.left = elmLeft + "px";
+  }
+  if (event.keyCode === 37) {
+    if (divElm.style.left === "") {
+      elmLeft = 0;
+    } else {
+      elmLeft = parseInt(divElm.style.left);
+    }
+    elmLeft -= 10;
+    elmLeft = elmLeft < 0 ? 0 : elmLeft;
+    divElm.style.left = elmLeft + "px";
+  }
+});
